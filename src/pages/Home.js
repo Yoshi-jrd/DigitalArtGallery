@@ -4,7 +4,17 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="hero bg-gradient-to-r from-indigo-900 via-purple-900 to-black min-h-screen flex items-center justify-center text-center">
+      <div className="hero-banner" style={{
+        backgroundImage: `url(../images/ArtHeroImage1.jpg)`, // Adjusted path
+        height: '100vh', // Full viewport height
+        backgroundSize: 'cover', // Cover the entire div
+        backgroundPosition: 'center', // Center the background image
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white' // Text color for visibility
+      }}>
         <div>
           <h1 className="text-white text-5xl font-light mb-6">Discover Unique Artworks</h1>
           <p className="text-gray-300 text-lg font-light mb-4">
@@ -37,7 +47,7 @@ function Home() {
 
 const ArtworkPreview = () => (
   <div className="artwork bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-    <img src="https://via.placeholder.com/300" alt="Artwork Name" className="w-full h-64 object-cover"/>
+    <img src="/images/ArtHeroImage1.jpeg" alt="Artwork Name" className="w-full h-64 object-cover"/>
     <div className="p-4">
       <h4 className="text-lg font-bold text-white">Artwork Title</h4>
       <p className="text-gray-500">This piece represents...</p>
