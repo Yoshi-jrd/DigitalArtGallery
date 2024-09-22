@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/DigitalArtGallery/static/css/main.c5e574ae.css",
+    "main.js": "/DigitalArtGallery/static/js/main.78e03c90.js",
+    "static/js/453.be3e52f6.chunk.js": "/DigitalArtGallery/static/js/453.be3e52f6.chunk.js",
+    "index.html": "/DigitalArtGallery/index.html",
+    "main.c5e574ae.css.map": "/DigitalArtGallery/static/css/main.c5e574ae.css.map",
+    "main.78e03c90.js.map": "/DigitalArtGallery/static/js/main.78e03c90.js.map",
+    "453.be3e52f6.chunk.js.map": "/DigitalArtGallery/static/js/453.be3e52f6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c5e574ae.css",
+    "static/js/main.78e03c90.js"
+  ]
+}
