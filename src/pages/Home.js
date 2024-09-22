@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="hero-banner" style={{
-        backgroundImage: `url(../images/ArtHeroImage1.jpg)`, // Adjusted path
+        backgroundImage: `url(/images/ArtHeroImage3.jpg)`, // Adjusted path
         height: '100vh', // Full viewport height
         backgroundSize: 'cover', // Cover the entire div
         backgroundPosition: 'center', // Center the background image
