@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+/* Ensures the carousel fits well in all devices */
+.carousel-container {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-container {
+      padding: 10px;
+  }
+}
