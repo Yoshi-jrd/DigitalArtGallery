@@ -1,18 +1,12 @@
 import React from 'react';
-import Carousel from '../components/Carousel';
-
-const images = [
-  '/images/highlands1.jpg',
-  '/images/highlands2.jpg',
-  '/images/highlands3.jpg' // Ensure these paths are correct
-];
+import ImageCarousel from '../components/ImageCarousel'; // Adjust path as necessary
 
 function Gallery() {
   return (
-    <div className="gallery-container h-screen">
-        <Carousel images={images} />
+    <div className="gallery-page">
+      <h1 className="text-center text-4xl font-bold my-8">Gallery</h1>
+      <ImageCarousel />
     </div>
-
   );
 }
 
