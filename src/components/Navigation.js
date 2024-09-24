@@ -33,15 +33,11 @@ function Navigation() {
           </form>
         </div>
         <div className="flex items-center space-x-4">
-          <Link to="/home" className="hover:text-gray-300 transition duration-300">Home</Link>
-          <Link to="/gallery" className="hover:text-gray-300 transition duration-300">Gallery</Link>
+          <Link to="/" className="hover:text-gray-300 transition duration-300">Home</Link> {/* Ensure this matches "/" */}
+          <Link to="/gallery" className="hover:text-gray-300 transition duration-300">Gallery</Link> {/* Ensure this matches "/gallery" */}
           <Link to="/about" className="hover:text-gray-300 transition duration-300">About</Link>
           <Link to="/contact" className="hover:text-gray-300 transition duration-300">Contact</Link>
           <Link to="/donate" className="hover:text-gray-300 transition duration-300">Donate</Link>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-blue-600"><i className="fab fa-facebook-f"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-blue-300"><i className="fab fa-twitter"></i></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-600"><i className="fab fa-instagram"></i></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-blue-700"><i className="fab fa-linkedin-in"></i></a>
         </div>
       </div>
     </nav>

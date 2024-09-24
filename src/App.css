@@ -36,8 +36,20 @@
     transform: rotate(360deg);
   }
 }
+@media (max-width: 1024px) {
+  .image-carousel-container {
+      width: 95%!important; /* Adjust width for tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .image-carousel-container {
+      width: 95%!important; /* Adjust width for mobile */
+  }
+}
+
 /* Ensures the carousel fits well in all devices */
-.carousel-container {
+.image-carousel-container {
   margin: 0 auto;
   padding: 20px;
   max-width: 100%;
@@ -46,7 +58,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .carousel-container {
+  .image-carousel-container {
       padding: 10px;
   }
 }
