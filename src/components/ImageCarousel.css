@@ -1,12 +1,13 @@
-/* Updated ImageCarousel.css */
+/* Complete ImageCarousel.css */
 
+/* Wrapper and Container Styling */
 .carousel-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; 
+    width: 100%;
     background-color: #121212;
-    padding: 40px 0;
+    padding: 50px 0;
 }
 
 .slide-container {
@@ -17,35 +18,37 @@
     padding: 50px 0;
     perspective: 1200px;
     overflow: hidden;
-    background-color: #121212; /* Ensure dark background theme */
+    background-color: #121212;
 }
 
+/* Slick Carousel Core Styling */
 .slick-list {
-    overflow: visible !important; /* Make sure the list is visible */
+    overflow: visible !important;
 }
 
 .slick-track {
     display: flex;
-    justify-content: center; /* Center slides within the slick track */
+    justify-content: center;
 }
 
 .slick-slide {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease-in-out;
     opacity: 0.2;
     transform: scale(0.8) translateZ(-50px);
 }
 
 .slick-center {
-    transform: scale(1.2) translateZ(60px) rotateY(0deg); /* Increase scale for more focus */
+    transform: scale(1.2) translateZ(60px) rotateY(0deg);
     opacity: 1;
     z-index: 3;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effect */
-    box-shadow: 0 15px 25px rgba(0, 255, 255, 0.3); /* Add a subtle glow effect */
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Custom Arrows */
 .slick-prev,
 .slick-next {
     z-index: 4;
@@ -57,15 +60,21 @@
     font-size: 20px;
 }
 
+/* Card and Image Styling */
 .slide-card {
-    width: 60%; /* Adjusted to match desired visual size */
+    width: 60%;
     height: 450px;
-    margin: 0 -15px; /* Adjust margins to bring slides closer together */
+    margin: 0 -15px;
     border-radius: 10px;
     border: 2px solid #444;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    position: relative;
+}
+
+.slide-card:hover {
+    transform: scale(1.1) translateZ(50px);
 }
 
 .slide-image {
@@ -75,11 +84,62 @@
     border-radius: 10px;
 }
 
+/* Blur and 3D Effect on Side Slides */
 .slick-slide:not(.slick-center) .slide-image {
-    filter: blur(2px); /* Reduce blurring for a balanced look */
-    opacity: 0.4; /* Slightly increase visibility */
+    filter: blur(2px);
+    opacity: 0.2;
 }
 
 .slick-slide:not(.slick-center) .slide-card {
-    transform: scale(0.85) translateZ(-60px) rotateY(10deg); /* Enhance 3D effect */
+    transform: scale(0.85) translateZ(-60px) rotateY(10deg);
+}
+
+/* Overlay Text Styling */
+.overlay-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Ensure overlay text appears on hover for desktop and tablet */
+.slide-card:hover .overlay-text {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Show overlay text on touch for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .slide-card:active .overlay-text {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* Persistent state on touch until next touch */
+@media (hover: none) {
+    .slide-card:focus .overlay-text {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.overlay-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.overlay-description {
+    font-size: 14px;
+    font-weight: normal;
 }
