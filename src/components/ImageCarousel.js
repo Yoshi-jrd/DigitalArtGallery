@@ -21,17 +21,17 @@ function ImageCarousel() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 3,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '0px',
     autoplay: true,
-    autoplaySpeed: 6000, // Increased delay to 6 seconds
+    autoplaySpeed: 6000,
     cssEase: 'ease-in-out',
     arrows: true,
     beforeChange: (current, next) => {
-      setActiveIndex(next); // Update active index when the slide changes
+      setActiveIndex(next);
     },
     responsive: [
       {
