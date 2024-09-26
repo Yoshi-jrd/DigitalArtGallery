@@ -1,3 +1,4 @@
+// Gallery.js
 import React, { useEffect, useRef } from 'react';
 import ImageCarousel from '../components/ImageCarousel'; // Main carousel showcasing artworks
 
@@ -49,9 +50,13 @@ function GalleryPage() {
         </div>
       </section>
 
-      {/* Image Carousel Section */}
-      <section className="carousel-section py-12">
-        <ImageCarousel />
+      {/* Feature Highlight Section */}
+      <section className="feature-highlight py-12 bg-black text-white">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-4">Featured Artworks</h2>
+          <p className="mb-8 text-lg">Discover a selection of curated masterpieces that stand out for their creativity, technique, and story.</p>
+          <ImageCarousel />
+        </div>
       </section>
 
       {/* Featured Collection */}
@@ -78,10 +83,7 @@ function GalleryPage() {
       </section>
 
       {/* Social Feed */}
-      <section
-        ref={instagramRef}
-        className="social-feed bg-gray-100 py-10"
-      >
+      <section ref={instagramRef} className="social-feed bg-gray-100 py-10">
         <h2 className="text-3xl font-bold text-center mb-4">Follow Us on Instagram</h2>
         <div className="instagram-feed grid grid-cols-2 md:grid-cols-4 gap-4 px-6">
           {/* Mock Instagram posts with lazy loading */}

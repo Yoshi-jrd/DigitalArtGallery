@@ -1,5 +1,5 @@
 // ImageCarousel.js
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,9 +7,7 @@ import './ImageCarousel.css'; // Ensure correct path to CSS
 
 function ImageCarousel() {
   const [activeIndex, setActiveIndex] = useState(0); // State to track the active slide index
-  const [showOverlay, setShowOverlay] = useState(false); // State to control overlay visibility on touch
   const sliderRef = useRef(null); // Ref to access the Slider component
-  const inactivityTimeout = useRef(null); // Ref to store the inactivity timeout
 
   // Array of images with metadata (title and description)
   const images = [
@@ -29,12 +27,11 @@ function ImageCarousel() {
     centerMode: true,
     centerPadding: '0px',
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 6000, // Increased delay to 6 seconds
     cssEase: 'ease-in-out',
     arrows: true,
     beforeChange: (current, next) => {
-      setActiveIndex(next);
-      setShowOverlay(false); // Reset overlay state when slide changes
+      setActiveIndex(next); // Update active index when the slide changes
     },
     responsive: [
       {
@@ -48,63 +45,21 @@ function ImageCarousel() {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
-          centerMode: false,
+          slidesToShow: 1, // Show only one image on smaller screens
+          centerMode: true,
+          centerPadding: '0px',
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          centerMode: false,
+          slidesToShow: 1, // Ensure only one image shows on very small screens
+          centerMode: true,
+          centerPadding: '0px',
         },
       },
     ],
   };
-
-  // Effect to address ARIA and accessibility issues
-  useEffect(() => {
-    const updateSliderAccessibility = () => {
-      const clonedSlides = document.querySelectorAll('.slick-cloned');
-      clonedSlides.forEach(slide => {
-        slide.removeAttribute('aria-hidden');
-        slide.setAttribute('inert', '');
-      });
-    };
-
-    setTimeout(updateSliderAccessibility, 500);
-  }, []);
-
-  // Function to toggle overlay on touch
-  const handleTouch = (index) => {
-    if (activeIndex === index) {
-      setShowOverlay(!showOverlay);
-    } else {
-      setShowOverlay(false); // Hide overlay if touching a different slide
-    }
-    resetInactivityTimer(); // Reset the inactivity timer on touch
-    sliderRef.current.slickPause(); // Pause the slider on touch
-  };
-
-  // Function to reset inactivity timer
-  const resetInactivityTimer = () => {
-    if (inactivityTimeout.current) {
-      clearTimeout(inactivityTimeout.current);
-    }
-    inactivityTimeout.current = setTimeout(() => {
-      setShowOverlay(false); // Hide overlay after 5 seconds of inactivity
-      sliderRef.current.slickPlay(); // Resume autoplay when overlay is hidden
-    }, 5000);
-  };
-
-  // Effect to clear the inactivity timer on component unmount
-  useEffect(() => {
-    return () => {
-      if (inactivityTimeout.current) {
-        clearTimeout(inactivityTimeout.current);
-      }
-    };
-  }, []);
 
   return (
     <div className="slide-container">
@@ -112,15 +67,16 @@ function ImageCarousel() {
         {images.map((img, index) => (
           <div
             key={index}
-            className="slide-card"
-            onTouchStart={() => handleTouch(index)} // Toggle overlay on touch and reset inactivity timer
+            className={`slide-card ${activeIndex === index ? 'active' : ''}`} // Apply active class when centered
           >
             <img src={img.src} alt={`Carousel of digital art ${index + 1}`} className="slide-image" />
-            {/* Only show overlay text if the current slide is the active one and showOverlay is true */}
-            {activeIndex === index && showOverlay && (
-              <div className="overlay-text">
-                <h3 className="overlay-title">{img.title}</h3>
-                <p className="overlay-description">{img.description}</p>
+            {/* Overlay container with animated text */}
+            {activeIndex === index && (
+              <div className="overlay-container">
+                <div className="overlay-text">
+                  <h3 className="overlay-title">{img.title}</h3>
+                  <p className="overlay-description">{img.description}</p>
+                </div>
               </div>
             )}
           </div>
