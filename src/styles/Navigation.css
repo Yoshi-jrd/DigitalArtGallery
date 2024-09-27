@@ -1,0 +1,135 @@
+/* Navigation.css */
+.nav-bar {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+  
+  .nav-bar.scrolled {
+    padding: 0.5rem 0;
+  }
+  
+  .container {
+    padding: 1rem 2rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease;
+    margin-right: 1rem;
+  }
+  
+  .logo:hover {
+    color: #ccc;
+  }
+  
+  .search-input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #666;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+    outline: none;
+  }
+  
+  .search-button {
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+    background: #666;
+    border-radius: 999px;
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background: #555;
+  }
+  
+  .suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin-top: 0.25rem;
+  }
+  
+  .suggestion-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .suggestion-item:hover {
+    background: #444;
+  }
+  
+  .menu-button {
+    color: white;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    position: relative;
+    padding: 0.5rem;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: #fff;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #ccc;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .side-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    z-index: 20;
+    transition: transform 0.3s ease;
+  }
+  
+  .close-drawer {
+    align-self: flex-end;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  

@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Navigation.css'; // Linking the new CSS file
 
 function Navigation() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    const query = event.target.value;
+    setSearchTerm(query);
+    // Example logic for fetching suggestions
+    const fakeSuggestions = ['Art 1', 'Art 2', 'Art 3'].filter((item) =>
+      item.toLowerCase().includes(query.toLowerCase())
+    );
+    setSuggestions(fakeSuggestions);
+    setShowSuggestions(query.length > 0);
   };
 
   const handleSearchSubmit = (event) => {
@@ -13,32 +25,78 @@ function Navigation() {
     console.log('Search for:', searchTerm);
   };
 
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setShowSuggestions(false);
+  };
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="bg-black bg-opacity-70 text-white fixed w-full z-10" style={{ backdropFilter: 'blur(10px)' }}>
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <nav className={`nav-bar ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="container flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="text-lg font-bold hover:text-gray-300 transition duration-300 mr-4">Digital Art Gallery</Link>
-          <form onSubmit={handleSearchSubmit} className="flex items-center">
+          <Link to="/" className="logo">Digital Art Gallery</Link>
+          <form onSubmit={handleSearchSubmit} className="flex items-center relative">
             <input
               type="text"
               placeholder="Search..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="px-2 py-1 rounded-full text-white placeholder-gray-300 bg-black bg-opacity-50 border border-gray-500 focus:outline-none focus:border-white transition duration-300"
-              style={{ minWidth: '200px' }}
+              className="search-input"
             />
-            <button type="submit" className="ml-2 text-white bg-gray-500 hover:bg-gray-400 rounded-full px-3 py-1">
+            <button type="submit" className="search-button">
               <i className="fa fa-search"></i>
             </button>
+            {showSuggestions && (
+              <ul className="suggestions-list">
+                {suggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    className="suggestion-item"
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </form>
         </div>
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="hover:text-gray-300 transition duration-300">Home</Link> {/* Ensure this matches "/" */}
-          <Link to="/gallery" className="hover:text-gray-300 transition duration-300">Gallery</Link> {/* Ensure this matches "/gallery" */}
-          <Link to="/about" className="hover:text-gray-300 transition duration-300">About</Link>
-          <Link to="/contact" className="hover:text-gray-300 transition duration-300">Contact</Link>
-          <Link to="/donate" className="hover:text-gray-300 transition duration-300">Donate</Link>
+        <button onClick={toggleDrawer} className="menu-button block lg:hidden">
+          <i className="fa fa-bars"></i>
+        </button>
+        <div className="nav-links hidden lg:flex">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/gallery" className="nav-link">Gallery</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/contact" className="nav-link">Contact</Link>
+          <Link to="/donate" className="nav-link">Donate</Link>
         </div>
+        {isDrawerOpen && (
+          <div className="side-drawer">
+            <button onClick={toggleDrawer} className="close-drawer">
+              <i className="fa fa-times"></i>
+            </button>
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/gallery" className="nav-link">Gallery</Link>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
+            <Link to="/donate" className="nav-link">Donate</Link>
+          </div>
+        )}
       </div>
     </nav>
   );
