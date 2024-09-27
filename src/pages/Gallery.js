@@ -1,5 +1,6 @@
 // Gallery.js
 import React, { useEffect, useRef } from 'react';
+import SidebarFilter from '../components/Carousel/SidebarFilter';
 import ImageCarousel from '../components/Carousel/ImageCarousel'; // Main carousel showcasing artworks
 
 function GalleryPage() {
