@@ -1,9 +1,12 @@
 // SidebarFilter.js
-import React, { useState } from 'react';
-import { FiFilter, FiX } from 'react-icons/fi'; // Icons for toggle buttons
+import React, { useState, useEffect, useRef } from 'react';
+import { FiFilter, FiX } from 'react-icons/fi';
+import './SidebarFilter.css'
 
 function SidebarFilter({ filterOptions, setFilterOptions }) {
-  const [isOpen, setIsOpen] = useState(false); // State to manage sidebar visibility
+  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // State to manage button visibility
+  const galleryRef = useRef(null); // Reference to the gallery section
 
   // Toggle sidebar visibility
   const toggleSidebar = () => {
@@ -21,16 +24,51 @@ function SidebarFilter({ filterOptions, setFilterOptions }) {
     setFilterOptions({ style: 'All', artist: 'All' });
   };
 
+  // Intersection Observer to control button visibility
+  useEffect(() => {
+    const currentRef = galleryRef.current; // Copy the ref value to a local variable
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 } // Adjusts when the button should appear
+    );
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef); // Use the local variable in cleanup
+      }
+    };
+  }, [galleryRef]);
+
   return (
-    <div className={`sidebar-filter ${isOpen ? 'open' : ''}`}>
+    <>
+      {/* Reference for the Gallery Section */}
+      <div ref={galleryRef}></div>
+
+      {/* Overlay when sidebar is open */}
+      {isOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+
       {/* Sidebar Toggle Button */}
-      <button className="toggle-btn" onClick={toggleSidebar}>
-        {isOpen ? <FiX size={24} /> : <FiFilter size={24} />}
-      </button>
+      {isVisible && (
+        <button
+          className={`toggle-btn ${isOpen ? 'open' : ''}`}
+          onClick={toggleSidebar}
+          aria-label="Filter Artworks"
+          title="Filter Artworks"
+        >
+          {isOpen ? <FiX size={24} /> : <FiFilter size={24} />}
+        </button>
+      )}
 
       {/* Sidebar Content */}
-      <div className="sidebar-content">
-        <h3 className="filter-title">Filters</h3>
+      <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <h3 className="filter-title">Filter Artworks</h3>
 
         {/* Style Filter */}
         <div className="filter-group">
@@ -64,7 +102,7 @@ function SidebarFilter({ filterOptions, setFilterOptions }) {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
