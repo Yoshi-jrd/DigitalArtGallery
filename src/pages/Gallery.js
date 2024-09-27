@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Masonry from 'react-masonry-css';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // Import lightbox style
+import '../styles/Gallery.css'; // Import your Gallery.css file
 
-// Function to dynamically import all images from the 'public/images' folder
+// Function to dynamically import all images from the 'src/assets/images' folder
 const importAllImages = (requireContext) => {
     return requireContext.keys().map((key, index) => {
         // Extract filename from the key for title purposes
@@ -16,7 +17,8 @@ const importAllImages = (requireContext) => {
     });
 };
 
-const images = importAllImages(require.context({src: '/images'}, false, /\.(png|jpe?g|svg)$/));
+// Adjusted path to match the new image location within src
+const images = importAllImages(require.context('../assets/gallery', false, /\.(png|jpe?g|svg)$/));
 
 const GalleryPage = () => {
     const [artworks, setArtworks] = useState([]);

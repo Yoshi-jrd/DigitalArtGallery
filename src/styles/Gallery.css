@@ -1,0 +1,170 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  /* Masonry Grid */
+  .my-masonry-grid {
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+  }
+  
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+  
+  .my-masonry-grid_column > div {
+    margin-bottom: 30px;
+  }
+  
+  /* Gallery Item */
+  .my-masonry-grid img {
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .my-masonry-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Artwork Title */
+  .my-masonry-grid p {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Lightbox Customization */
+  .ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+  }
+  
+  .ReactModal__Content {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Navigation Bar */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+  
+  .sticky-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    padding: 15px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sticky-nav a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .sticky-nav a:hover {
+    color: #007bff;
+  }
+  
+  /* Search and Filter */
+  .search-filter-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .search-input {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #007bff;
+  }
+  
+  .filter-buttons {
+    margin-left: 10px;
+  }
+  
+  .filter-button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .filter-button:hover,
+  .filter-button.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Social Sharing */
+  .share-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .share-button:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Accessibility Enhancements */
+  img[alt] {
+    outline: 2px solid transparent;
+    outline-offset: 4px;
+  }
+  
+  img:focus-visible {
+    outline: 2px solid #007bff;
+  }
+  
+  /* SEO and Optimization */
+  img {
+    max-width: 100%;
+    height: auto;
+    loading: auto; /* Avoid lazy loading to maintain vibrant display */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .sticky-nav {
+      padding: 8px 10px;
+    }
+  
+    .my-masonry-grid img {
+      border-radius: 4px;
+    }
+  }
+  
