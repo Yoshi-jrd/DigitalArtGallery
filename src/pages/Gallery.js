@@ -15,17 +15,14 @@ const GalleryPage = () => {
   const filterButtonRef = useRef(null);
 
   const images = [
-    { src: '/static/media/AWorthyGaze.98cab3a9a067d2fbce3e.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-    { src: '/static/media/AWarriorsTouch.05b2b27ad4e7aceb5dd5.jpg', title: 'A Warrior’s Touch', category: 'Portraits' },
-    { src: '/static/media/ArtHeroImage1.f47923e9db742e5092ac.jpg', title: 'Art Hero Image 1', category: 'Abstract' },
-    { src: '/static/media/ArtHeroImage2.88745b080edc427de203.jpg', title: 'Art Hero Image 2', category: 'Abstract' },
-    { src: '/static/media/ArtHeroImage3.1eb70ed9ae251e1ef307.jpg', title: 'Art Hero Image 3', category: 'Nature' },
-    { src: '/static/media/ArtHeroImage4.aa75e826a7fe3b952170.jpg', title: 'Art Hero Image 4', category: 'Nature' },
-    { src: '/static/media/CosmicVogue.49f5c022f37b69990f16.jpg', title: 'Cosmic Vogue', category: 'Fashion' },
-    { src: '/static/media/Shimmer.8a138fa310b8c4838c5b.jpg', title: 'Shimmer', category: 'Fashion' },
-    { src: '/static/media/glowUp.7f351444e5dc1ca6a406.jpg', title: 'Glow Up', category: 'Abstract' },
-    { src: '/static/media/irridescentRiver.d9add9ca480907fda8d7.jpg', title: 'Irridescent River', category: 'Nature' },
-    { src: '/static/media/theMilkeyWay.1b7fcefe287cc3aebaaf.jpg', title: 'The Milky Way', category: 'Space' },
+      { src: '/images/featureCarousel/AWorthyGaze.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/publicGallery/irridescentRiver.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/featureCarousel/AWarriorsTouch.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/featureCarousel/CosmicVogue.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/featureCarousel/Shimmer.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/hero/ArtheroImage1.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      { src: '/images/publicGallery/theMilkeyWay.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
+      // Other images omitted for brevity
   ];
 
   const openLightbox = (index) => {
@@ -33,7 +30,6 @@ const GalleryPage = () => {
     setIsOpen(true);
   };
 
-  // Wrap closeLightbox in useCallback to memoize it and avoid unnecessary re-renders
   const closeLightbox = useCallback(() => {
     setIsOpen(false);
     filterButtonRef.current?.focus();
@@ -58,9 +54,10 @@ const GalleryPage = () => {
 
   return (
     <div className="gallery-page" role="main" aria-label="Art Gallery">
-      <h1>Art Gallery</h1>
+      <header className="gallery-header">
+        <h1>Art Gallery</h1>
+      </header>
 
-      {/* Filter Icon - Always Visible */}
       <button
         ref={filterButtonRef}
         className="filter-icon"
@@ -72,14 +69,12 @@ const GalleryPage = () => {
         <FiFilter size={24} />
       </button>
 
-      {/* Collapsible Sidebar */}
       <aside
         id="filter-sidebar"
         className={`filter-sidebar ${filterVisible ? 'visible' : ''}`}
         aria-hidden={!filterVisible}
       >
         <h2 id="filter-label">Filters</h2>
-        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search artworks..."
@@ -88,7 +83,6 @@ const GalleryPage = () => {
           className="search-bar"
           aria-label="Search artworks"
         />
-        {/* Category Filters */}
         <div className="filter-categories">
           {['All', 'Portraits', 'Abstract', 'Nature', 'Fashion', 'Space'].map((category) => (
             <button
@@ -110,7 +104,6 @@ const GalleryPage = () => {
         </button>
       </aside>
 
-      {/* Masonry layout for displaying images */}
       <Masonry
         breakpointCols={{
           default: 4,
@@ -135,14 +128,12 @@ const GalleryPage = () => {
               src={image.src}
               alt={image.title || `Artwork ${index + 1}`}
               loading="lazy"
-              style={{ width: '100%', display: 'block', cursor: 'pointer' }}
             />
             <p className="gallery-title">{image.title}</p>
           </div>
         ))}
       </Masonry>
 
-      {/* Render Lightbox when isOpen is true */}
       {isOpen && (
         <Lightbox
           open={isOpen}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Navigation.css'; // Linking the new CSS file
+import '../../styles/Navigation.css'; // Linking the new CSS file
 
 function Navigation() {
   const [searchTerm, setSearchTerm] = useState('');

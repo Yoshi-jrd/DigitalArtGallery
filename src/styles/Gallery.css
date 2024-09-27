@@ -2,24 +2,36 @@
 
 /* Padding adjustment to accommodate nav header */
 .gallery-page {
-    padding: 70px 20px; /* Adjusted padding to accommodate the nav header */
-}
-/* Gallery Container Adjustment */
-.gallery-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 70px 20px;
+    background: linear-gradient(to bottom, #1e1e1e, #111);
+    color: #ddd;
+  }
+  
+  /* Gallery Header */
+  .gallery-header {
+    background: linear-gradient(to right, #1a1a1a, #333);
+    padding: 60px 0;
     text-align: center;
+    color: #fff;
+  }
+  
+  .gallery-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
   }
   
   /* Masonry Grid */
   .my-masonry-grid {
     display: flex;
-    margin: 0 auto; /* Center the grid */
-    width: 100%; /* Use full width */
+    margin: 0 auto;
+    width: 100%;
   }
   
   .my-masonry-grid_column {
-    padding-left: 30px; /* gutter size */
+    padding-left: 30px;
     background-clip: padding-box;
   }
   
@@ -30,69 +42,67 @@
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
   }
   
   .gallery-item img {
     width: 100%;
     display: block;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
+    border-radius: 12px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1); /* Brighten image on hover to enhance visibility */
   }
   
   .gallery-title {
     position: absolute;
     bottom: 10px;
     left: 10px;
-    padding: 5px 10px;
+    padding: 8px 12px;
     background: rgba(0, 0, 0, 0.6);
     color: #fff;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 14px;
     opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  /* Hover Effects */
-  .gallery-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  .gallery-item:hover img {
-    transform: scale(1.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
   }
   
   .gallery-item:hover .gallery-title {
     opacity: 1;
+    transform: translateY(-5px);
   }
   
   /* Filter Icon */
   .filter-icon {
     position: fixed;
-    top: 100px; /* Adjust based on your header size */
+    top: 100px;
     left: 10px;
-    background: #333;
+    background: #4a4a4a;
     color: #fff;
-    padding: 8px;
+    padding: 10px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
   }
   
   .filter-icon:hover {
-    background: #555;
+    background: #666;
   }
   
   /* Collapsible Sidebar */
   .filter-sidebar {
     position: fixed;
     top: 0;
-    left: -300px; /* Hidden off-screen */
+    left: -300px;
     width: 300px;
     height: 100vh;
-    background: #ffffff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    background: #282828;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
     transition: left 0.3s ease;
     z-index: 999;
     padding: 20px;
@@ -100,23 +110,26 @@
     flex-direction: column;
     gap: 20px;
     overflow-y: auto;
+    color: #ddd;
   }
   
   .filter-sidebar.visible {
-    left: 0; /* Slide into view */
+    left: 0;
   }
   
   .filter-sidebar h2 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: #ddd;
   }
   
   .search-bar {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: 4px;
     outline: none;
+    background: #333;
+    color: #ddd;
   }
   
   .filter-categories {
@@ -129,19 +142,18 @@
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #ddd;
+    background-color: #444;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
   }
   
   .filter-button.active {
-    background-color: #333;
-    color: #fff;
+    background-color: #222;
   }
   
   .filter-button:hover {
     background-color: #555;
-    color: #fff;
   }
   
   .close-sidebar {
@@ -158,16 +170,4 @@
   .close-sidebar:hover {
     background: #d32f2f;
   }
-  
-  /* Focus Styles */
-.gallery-item:focus {
-    outline: 2px solid #007bff; /* Custom focus outline */
-  }
-  
-  .filter-button:focus,
-  .close-sidebar:focus,
-  .filter-icon:focus {
-    outline: 2px solid #007bff; /* Focus style for buttons */
-    outline-offset: 2px;
-  }
-  
+    
