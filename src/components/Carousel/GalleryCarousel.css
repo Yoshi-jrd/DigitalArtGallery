@@ -6,30 +6,44 @@
     padding: 20px 0; /* Adds vertical spacing */
 }
 
-.image-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Ensures images do not break out of their containers */
+/* Specific override for GalleryCarousel if it uses the same slick settings */
+.gallery-carousel-container .slick-slide {
+    opacity: 1;  /* Ensures all slides in GalleryCarousel are fully opaque */
 }
 
-.image-slide img {
+/* .gallery-carousel-container * { */
+    /* opacity: 1 !important; Ensures full opacity */
+/* } */
+
+.gallery-image-slide img {
+    width: auto; /* Adjust width automatically */
+    max-width: 100%; /* Ensures images do not stretch beyond their container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensures images are resized properly to fit their box */
+}
+
+.gallery-image-slide img {
     width: 100%; /* Makes images fully responsive within the container */
     height: auto; /* Maintains aspect ratio */
     transition: transform 0.3s ease-in-out; /* Smooth transition for any transformations */
+    transform: scale(1);
+}
+
+.gallery-image-slide:hover img {
+    transform: scale(1.2); /* Slightly larger on hover */
 }
 
 /* Enhances the focus on the active slide */
-.slick-center .image-slide img {
+.gallery-slick-center .gallery-image-slide img {
     transform: scale(1.1); /* Slightly enlarges the central image */
     box-shadow: 0 4px 8px rgba(0,0,0,0.6); /* Adds a subtle shadow for depth */
     opacity: 1; /* Ensures the central image is fully opaque */
 }
 
 /* Subdues non-central images slightly to focus on the center */
-.slick-slide img {
-    opacity: 0.8; /* Slightly reduces opacity to lessen focus */
-    transform: scale(0.9); /* Scales down non-central images */
+.gallery-slick-slide img {
+    opacity: 1; /* Slightly reduces opacity to lessen focus */
+    transform: scale(1); /* Scales down non-central images */
 }
 
 /* Responsive Settings */
@@ -38,7 +52,7 @@
         padding: 10px 5px; /* Reduces padding on smaller screens */
     }
 
-    .image-slide img {
+    .gallery-image-slide img {
         transform: scale(1); /* Removes scaling effect on smaller screens */
     }
 }

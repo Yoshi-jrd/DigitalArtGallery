@@ -5,7 +5,7 @@ import Navigation from './components/Layout/Navigation';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/Utils/scrollToTop';
 import HomePage from './pages/Home';
-import Gallery from './pages/Gallery';
+import GalleryPage from './pages/Gallery';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Donate from './pages/Donate';
@@ -18,7 +18,7 @@ function App() {
       <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/donate" element={<Donate />} />
