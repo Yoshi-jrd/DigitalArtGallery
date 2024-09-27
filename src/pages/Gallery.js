@@ -42,7 +42,7 @@ function GalleryPage() {
     <div className="gallery-page">
       {/* Hero Section */}
       <section className="hero-gallery bg-gray-900 text-white flex flex-col items-center justify-center h-screen relative">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/images/ArtHeroImage2.jpg)', filter: 'brightness(0.5)' }}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/images/hero/ArtHeroImage2.jpg)', filter: 'brightness(0.5)' }}></div>
         <div className="relative z-10 text-center">
           <h1 className="text-5xl font-bold mb-4">Our Curated Collection</h1>
           <p className="max-w-lg mx-auto text-lg">Explore exclusive artworks that tell a story beyond the canvas.</p>
@@ -63,9 +63,9 @@ function GalleryPage() {
       <section className="featured-collection py-12 bg-white text-gray-800">
         <h2 className="text-4xl font-bold text-center mb-6">Explore More Artworks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-          <ArtworkPreview title="Abstract Dreamscape" artist="Jane Doe" imgUrl="/images/ArtHeroImage1.jpg" />
-          <ArtworkPreview title="Modern Geometry" artist="John Smith" imgUrl="/images/ArtHeroImage2.jpg" />
-          <ArtworkPreview title="Futuristic Visions" artist="Anna Lee" imgUrl="/images/ArtHeroImage3.jpg" />
+          <ArtworkPreview title="Abstract Dreamscape" artist="Jane Doe" imgUrl="/images/hero/ArtHeroImage1.jpg" />
+          <ArtworkPreview title="Modern Geometry" artist="John Smith" imgUrl="/images/hero/ArtHeroImage2.jpg" />
+          <ArtworkPreview title="Futuristic Visions" artist="Anna Lee" imgUrl="/images/hero/ArtHeroImage3.jpg" />
         </div>
       </section>
 
@@ -78,7 +78,7 @@ function GalleryPage() {
             <p className="mt-4 text-gray-300">Jane Doe is an abstract artist known for her vibrant use of colors and textures that explore the boundaries of emotion.</p>
             <button className="mt-4 bg-white text-black py-2 px-4 rounded-lg hover:bg-gray-700 hover:text-white">Learn More</button>
           </div>
-          <img src="/images/ArtHeroImage1.jpg" alt="Jane Doe Art" className="rounded-lg shadow-lg" />
+          <img src="/images/hero/ArtHeroImage1.jpg" alt="Jane Doe Art" className="rounded-lg shadow-lg" />
         </div>
       </section>
 
@@ -87,10 +87,10 @@ function GalleryPage() {
         <h2 className="text-3xl font-bold text-center mb-4">Follow Us on Instagram</h2>
         <div className="instagram-feed grid grid-cols-2 md:grid-cols-4 gap-4 px-6">
           {/* Mock Instagram posts with lazy loading */}
-          <img data-src="/images/highlands1.jpg" alt="Instagram Post 1" className="rounded-lg" />
-          <img data-src="/images/highlands2.jpg" alt="Instagram Post 2" className="rounded-lg" />
-          <img data-src="/images/highlands3.jpg" alt="Instagram Post 3" className="rounded-lg" />
-          <img data-src="/images/highlands1.jpg" alt="Instagram Post 4" className="rounded-lg" />
+          <img data-src="/images/publicGallery/glowUp.jpg" alt="Instagram Post 1" className="rounded-lg" />
+          <img data-src="/images/publicGallery/irridescentRiver.jpg" alt="Instagram Post 2" className="rounded-lg" />
+          <img data-src="/images/publicGalllery/theMilkeyWay.jpg" alt="Instagram Post 3" className="rounded-lg" />
+          <img data-src="/images/publicGallery/glowUp.jpg" alt="Instagram Post 4" className="rounded-lg" />
         </div>
       </section>
     </div>

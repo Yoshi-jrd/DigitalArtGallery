@@ -11,10 +11,10 @@ function ImageCarousel() {
 
   // Array of images with metadata (title and description)
   const images = [
-    { src: '/images/imageGallery/image1.jpg', title: 'Title 1', description: 'Description for Image 1' },
-    { src: '/images/imageGallery/image2.jpg', title: 'Title 2', description: 'Description for Image 2' },
-    { src: '/images/imageGallery/image3.jpg', title: 'Title 3', description: 'Description for Image 3' },
-    { src: '/images/imageGallery/image4.jpg', title: 'Title 4', description: 'Description for Image 4' },
+    { src: '/images/featureCarousel/image1.jpg', title: 'Title 1', description: 'Description for Image 1' },
+    { src: '/images/featureCarousel/image2.jpg', title: 'Title 2', description: 'Description for Image 2' },
+    { src: '/images/featureCarousel/image3.jpg', title: 'Title 3', description: 'Description for Image 3' },
+    { src: '/images/featureCarousel/image4.jpg', title: 'Title 4', description: 'Description for Image 4' },
   ];
 
   // Slider settings
