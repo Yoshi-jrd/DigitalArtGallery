@@ -1,10 +1,31 @@
 // Gallery.js
-import React, { useEffect, useRef } from 'react';
-import SidebarFilter from '../components/Carousel/SidebarFilter';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import SidebarFilter from '../components/Carousel/SidebarFilter'; // Import the SidebarFilter component
 import ImageCarousel from '../components/Carousel/ImageCarousel'; // Main carousel showcasing artworks
 
 function GalleryPage() {
   const instagramRef = useRef(null);
+  const [filterOptions, setFilterOptions] = useState({ style: 'All', artist: 'All' }); // State for filter options
+  const [filteredArtworks, setFilteredArtworks] = useState([]); // State to manage filtered artworks
+
+  // Mock artwork data
+  const artworks = useMemo(() => [
+    { id: 1, title: 'Abstract Dreamscape', artist: 'Jane Doe', style: 'Abstract', imgUrl: '/images/hero/ArtHeroImage1.jpg' },
+    { id: 2, title: 'Modern Geometry', artist: 'John Smith', style: 'Modern', imgUrl: '/images/hero/ArtHeroImage2.jpg' },
+    { id: 3, title: 'Futuristic Visions', artist: 'Anna Lee', style: 'Surreal', imgUrl: '/images/hero/ArtHeroImage3.jpg' },
+  ], []); // Memoizing the artworks to prevent unnecessary re-renders
+
+  useEffect(() => {
+    // Filter artworks based on filter options
+    let filtered = [...artworks];
+    if (filterOptions.style !== 'All') {
+      filtered = filtered.filter((art) => art.style === filterOptions.style);
+    }
+    if (filterOptions.artist !== 'All') {
+      filtered = filtered.filter((art) => art.artist === filterOptions.artist);
+    }
+    setFilteredArtworks(filtered);
+  }, [filterOptions, artworks]); // Include artworks as a dependency
 
   useEffect(() => {
     const currentRef = instagramRef.current;
@@ -41,6 +62,9 @@ function GalleryPage() {
 
   return (
     <div className="gallery-page">
+      {/* Sidebar Filter */}
+      <SidebarFilter filterOptions={filterOptions} setFilterOptions={setFilterOptions} />
+
       {/* Hero Section */}
       <section className="hero-gallery bg-gray-900 text-white flex flex-col items-center justify-center h-screen relative">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/images/hero/ArtHeroImage2.jpg)', filter: 'brightness(0.5)' }}></div>
@@ -60,13 +84,13 @@ function GalleryPage() {
         </div>
       </section>
 
-      {/* Featured Collection */}
-      <section className="featured-collection py-12 bg-white text-gray-800">
+      {/* Filtered Artwork Display */}
+      <section className="filtered-artworks py-12 bg-white text-gray-800">
         <h2 className="text-4xl font-bold text-center mb-6">Explore More Artworks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-          <ArtworkPreview title="Abstract Dreamscape" artist="Jane Doe" imgUrl="/images/hero/ArtHeroImage1.jpg" />
-          <ArtworkPreview title="Modern Geometry" artist="John Smith" imgUrl="/images/hero/ArtHeroImage2.jpg" />
-          <ArtworkPreview title="Futuristic Visions" artist="Anna Lee" imgUrl="/images/hero/ArtHeroImage3.jpg" />
+          {filteredArtworks.map((art) => (
+            <ArtworkPreview key={art.id} title={art.title} artist={art.artist} imgUrl={art.imgUrl} />
+          ))}
         </div>
       </section>
 
