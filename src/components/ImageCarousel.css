@@ -1,13 +1,11 @@
-/* Complete ImageCarousel.css */
-
 /* Core Carousel and Container Styles */
 .carousel-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: #121212;
     padding: 50px 0;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.85) 30%, #121212 100%);
 }
 
 .slide-container {
@@ -16,10 +14,13 @@
     max-width: 100vw;
     margin: 0 auto;
     padding: 50px 0;
-    perspective: 1200px;
     overflow: hidden;
-    background-color: #121212;
+    background-size: cover;
+    background-position: center;
 }
+
+/* Dynamic background based on centered slide */
+/* Implementation should be handled by JavaScript by updating the background-image style property of .slide-container based on the centered slide's image */
 
 /* Slick Carousel Core Styles */
 .slick-list {
@@ -30,7 +31,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; /* Center the slick track within its container */
+    margin: 0 auto;
 }
 
 /* Core slide styles */
@@ -40,14 +41,15 @@
     align-items: center;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease-in-out;
     opacity: 0.2;
-    transform: scale(0.8) translateZ(-50px);
+    transform: scale(0.8) rotateY(-30deg);
 }
 
 .slick-center {
-    transform: scale(1.2) translateZ(60px) rotateY(0deg);
+    transform: scale(1.2) rotateY(0deg);
     opacity: 1;
     z-index: 3;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
 }
 
 /* Card and Image Styles */
@@ -56,7 +58,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 85%; /* Ensure a balanced size on mobile */
+    width: 85%;
     max-width: 90vw;
     height: auto;
     border-radius: 10px;
@@ -64,8 +66,9 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
-    margin: 0 auto; /* Center the card inside the container */
+    margin: 0 auto;
     position: relative;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Image Styling */
@@ -74,37 +77,31 @@
     height: auto;
     object-fit: cover;
     border-radius: 10px;
-    margin: 0; /* Ensure image fits perfectly without extra margins */
 }
 
 /* 3D Effect and Blurring of Side Slides */
 .slick-slide:not(.slick-center) .slide-image {
-    filter: blur(2px);
-    opacity: 0.2;
+    filter: blur(4px);
+    opacity: 0.4;
 }
 
 .slick-slide:not(.slick-center) .slide-card {
-    transform: scale(0.85) translateZ(-60px) rotateY(10deg);
+    transform: scale(0.85) rotateY(10deg);
 }
 
 /* Adjustments for Mobile View */
 @media (max-width: 600px) {
     .slide-card {
-        width:80%; /* Reduced width for more balanced padding around the image */
-        max-width: 95vw; /* Ensures the card does not overflow horizontally */
+        width: 80%;
+        max-width: 95vw;
         height: auto;
-        margin: 0 auto; /* Center the card within the viewport */
+        margin: 0 auto;
         padding: 0;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-        transform: scale(1) translateZ(30px); /* Scale to create a floating appearance */
     }
 
     .slide-image {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
         border-radius: 15px;
-        margin: 0; /* Remove any unintended offset */
     }
 }
 
@@ -117,14 +114,14 @@
     flex-direction: column;
     align-items: flex-start;
     pointer-events: none;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for readability */
+    padding: 15px 25px;
+    border-radius: 8px;
 }
 
 /* Overlay Text Styling for a 3D Floating Effect */
 .overlay-text {
     color: #ffffff;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 15px 25px;
-    border-radius: 8px;
     text-align: left;
     transform: translateY(30px);
     opacity: 0;
@@ -140,35 +137,4 @@
         transform: translateY(0);
         opacity: 1;
     }
-}
-
-.overlay-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.overlay-description {
-    font-size: 16px;
-    font-weight: normal;
-}
-
-/* CSS Updates */
-.feature-highlight {
-    background-color: #121212; /* Matches the overall dark theme */
-    color: #ffffff;
-    padding: 50px 0;
-    text-align: center;
-}
-
-.feature-highlight h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.feature-highlight p {
-    font-size: 1.125rem;
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
 }

@@ -27,7 +27,7 @@ function ImageCarousel() {
     centerMode: true,
     centerPadding: '0px',
     autoplay: true,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 5000,
     cssEase: 'ease-in-out',
     arrows: true,
     beforeChange: (current, next) => {
