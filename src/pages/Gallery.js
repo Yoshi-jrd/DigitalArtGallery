@@ -1,6 +1,6 @@
 // Gallery.js
 import React, { useEffect, useRef } from 'react';
-import ImageCarousel from '../components/ImageCarousel'; // Main carousel showcasing artworks
+import ImageCarousel from '../components/Carousel/ImageCarousel'; // Main carousel showcasing artworks
 
 function GalleryPage() {
   const instagramRef = useRef(null);
@@ -89,7 +89,7 @@ function GalleryPage() {
           {/* Mock Instagram posts with lazy loading */}
           <img data-src="/images/publicGallery/glowUp.jpg" alt="Instagram Post 1" className="rounded-lg" />
           <img data-src="/images/publicGallery/irridescentRiver.jpg" alt="Instagram Post 2" className="rounded-lg" />
-          <img data-src="/images/publicGalllery/theMilkeyWay.jpg" alt="Instagram Post 3" className="rounded-lg" />
+          <img data-src="/images/publicGallery/theMilkeyWay.jpg" alt="Instagram Post 3" className="rounded-lg" />
           <img data-src="/images/publicGallery/glowUp.jpg" alt="Instagram Post 4" className="rounded-lg" />
         </div>
       </section>

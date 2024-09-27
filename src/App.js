@@ -1,8 +1,8 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import ScrollToTop from './components/ScrollToTop'; // Import the ScrollToTop component
+import Navigation from './components/Layout/Navigation';
+import ScrollToTop from './components/Utils/scrollToTop'; // Import the ScrollToTop component
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
