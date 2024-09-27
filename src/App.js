@@ -10,10 +10,13 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Donate from './pages/Donate';
 
+import TestLightbox from './tests/TestLightbox';
+
 function App() {
   return (
     <GalleryProvider>
     <Router>
+      <TestLightbox />
       <ScrollToTop /> {/* Ensures scroll-to-top on route change */}
       <Navigation />
         <Routes>

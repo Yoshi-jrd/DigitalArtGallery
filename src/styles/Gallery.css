@@ -6,6 +6,12 @@ body {
     background-color: #f0f0f0;
     color: #333;
   }
+
+  /* Gallery container */
+.gallery-container {
+    padding-top: 70px; /* Adjust based on the height of your sticky nav */
+  }
+  
   
   /* Masonry Grid */
   .my-masonry-grid {
@@ -154,7 +160,6 @@ body {
   img {
     max-width: 100%;
     height: auto;
-    loading: auto; /* Avoid lazy loading to maintain vibrant display */
   }
   
   /* Responsive Adjustments */
