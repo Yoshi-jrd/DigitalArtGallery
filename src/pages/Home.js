@@ -1,16 +1,9 @@
-// Gallery.js
+// Home.js
 import React, { useEffect, useRef } from 'react';
 import ImageCarousel from '../components/Carousel/ImageCarousel';
-import GalleryCarousel from '../components/GalleryCarousel';
+import GalleryCarousel from '../components/Carousel/GalleryCarousel';
 
 function HomePage() {
-  const galleryImages = [
-    { src: '/images/publicGallery/glowUp.jpg', alt: 'Abstract glowing art' },
-    { src: '/images/publicGallery/irridescentRiver.jpg', alt: 'Irridescent River Abstract' },
-    { src: '/images/publicGallery/theMilkeyWay.jpg', alt: 'A Milkey Galaxy' },
-    // Add more images as needed
-  ];
-
   const instagramRef = useRef(null);
 
   useEffect(() => {
@@ -45,6 +38,13 @@ function HomePage() {
       }
     };
   }, []);
+
+  const galleryImages = [
+    { src: '/images/publicGallery/glowUp.jpg', alt: 'Glow Up' },
+    { src: '/images/publicGallery/irridescentRiver.jpg', alt: 'Irridescent River' },
+    { src: '/images/publicGallery/theMilkeyWay.jpg', alt: 'A Milky Galaxy' },
+    // Add more images as needed
+  ];
 
   return (
     <div className="gallery-page">
@@ -81,24 +81,19 @@ function HomePage() {
       </section>
 
       {/* Featured Collection */}
-      <section
-
-        className="featured-collection py-12 bg-white text-gray-800"
-      >
+      <section className="featured-collection py-12 bg-white text-gray-800">
         <h2 className="text-4xl font-bold text-center mb-6">
           Explore More Artworks
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-        <GalleryCarousel 
-          images={galleryImages} 
-          slideToShow={3}
-          slideToScroll={3}
-          autoplaySpeed={10000}
-        />
+        <div className='gallery-carousel-container'>
+          <GalleryCarousel 
+            images={galleryImages} 
+            slideToShow={3}
+            slideToScroll={3}
+            autoplaySpeed={10000}
+          />
         </div>
       </section>
-
-      {/* Artist Spotlight */}
       <section className="artist-spotlight py-12 bg-gray-900 text-white">
         <h2 className="text-4xl font-bold text-center mb-6">Artist Spotlight</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6">
@@ -152,16 +147,5 @@ function HomePage() {
     </div>
   );
 }
-
-// Reusable Artwork Preview Component
-const ArtworkPreview = ({ title, artist, imgUrl }) => (
-  <div className="artwork bg-white rounded-lg shadow-lg overflow-hidden">
-    <img src={imgUrl} alt={title} className="w-full h-64 object-cover" />
-    <div className="p-4">
-      <h4 className="text-xl font-bold">{title}</h4>
-      <p className="text-gray-600">By {artist}</p>
-    </div>
-  </div>
-);
 
 export default HomePage;

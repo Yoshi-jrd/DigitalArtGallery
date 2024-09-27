@@ -1,4 +1,6 @@
 import React from 'react';
+//import ErrorBoundary from '../Utils/errorBoundary';
+import './GalleryCarousel.css';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -35,7 +37,7 @@ function GalleryCarousel({ images, slideToShow = 3, slideToScroll = 3, autoplayS
     <Slider {...settings}>
       {images.map((image, index) => (
         <div key={index} className="image-slide">
-          <img src={image.src} alt={image.alt} style={{ width: '100%', height: 'auto' }} />
+          <img src={image.src} alt={image.alt} style={{ width: '100%', height: 'auto', zIndex: '2' }} />
         </div>
       ))}
     </Slider>
