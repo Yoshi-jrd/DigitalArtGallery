@@ -9,10 +9,10 @@ import ScrollToTop from './components/Utils/scrollToTop';
 import HomePage from './pages/Home';
 import GalleryPage from './pages/Gallery';
 import Contact from './pages/Contact';
-import Upload from './pages/Upload';
+import ImageUploadPage from './pages/ImageUpload';
 import Donate from './pages/Donate';
 import Auth from './components/Utils/Auth';
-import ImageUpload from './components/Utils/ImageUpload';
+//import ImageUpload from './components/Utils/ImageUpload';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,7 +49,7 @@ function App() {
           <Route path="/gallery" element={isAuthenticated ? <GalleryPage /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/donate" element={<Donate />} />
-          <Route path="/upload" element={isAuthenticated ? <ImageUpload /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/upload" element={isAuthenticated ? <ImageUploadPage /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/login" element={<Auth setIsAuthenticated={setIsAuthenticated} />} />
         </Routes>
       </Router>

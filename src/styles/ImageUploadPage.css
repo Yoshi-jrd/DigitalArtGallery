@@ -1,0 +1,160 @@
+/* Background container for the upload page */
+.upload-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/*Moved this functionality to inline with JSX to fetch dynamically
+/* Blurred and darkened background image */
+/* .upload-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://your-database-image-url'); /* Replace with dynamically fetched image */
+    /*background-size: cover;
+    background-position: center;
+    z-index: -1; /* Ensures it is behind the form */
+    /*filter: blur(40px); /* Apply strong blur */
+    /*opacity: 0.15; /* Darken the background */
+    /*transition: filter 0.3s ease, opacity 0.3s ease; /* Smooth transition for blur and opacity */
+/*} */
+
+/* Form container to stay above the blurred background */
+.upload-form-container {
+    position: relative;
+    z-index: 1; /* Ensure form is above the background */
+    background-color: rgba(0, 0, 0, 0.85); /* Opaque black form background */
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+
+.upload-form-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #f0f0f0;
+}
+
+/* Input and form styles */
+.upload-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-form-container label {
+    font-size: 1.1rem;
+    color: #f0f0f0;
+    margin-bottom: 8px;
+}
+
+.upload-form-container input[type="text"],
+.upload-form-container input[type="file"],
+.upload-form-container textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #1e1e1e; /* Dark input background */
+    color: #f0f0f0;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.upload-form-container input[type="text"]:focus,
+.upload-form-container input[type="file"]:focus,
+.upload-form-container textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Textarea resize and height */
+.upload-form-container textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* File input styling */
+.upload-form-container input[type="file"] {
+    padding: 5px 10px;
+}
+
+/* Progress bar styling */
+.upload-form-container progress {
+    width: 100%;
+    height: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.upload-form-container progress::-webkit-progress-bar {
+    background-color: #f0f0f0;
+}
+
+.upload-form-container progress::-webkit-progress-value {
+    background-color: #007BFF;
+}
+
+/* Button styles */
+.upload-form-container button {
+    padding: 14px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.upload-form-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Success/Failure message styling */
+.upload-form-container .message {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+.upload-form-container .message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.upload-form-container .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .upload-form-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .upload-form-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .upload-form-container button {
+        font-size: 0.9rem;
+    }
+}
+  
