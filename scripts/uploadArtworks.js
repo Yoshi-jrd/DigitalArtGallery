@@ -1,11 +1,11 @@
 // scripts/uploadArtworks.js
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import fs from 'fs';
-import path from 'path';
+const { initializeApp } = require('firebase/app');
+const { getFirestore, collection, addDoc, serverTimestamp } = require('firebase/firestore');
+const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/storage');
+const fs = require('fs');
+const path = require('path');
 
-// Initialize Firebase with your config
+// Firebase configuration and initialization
 const firebaseConfig = {
   apiKey: "AIzaSyCv3kuTEb9WqneHe58nIRiyz3l23OwJPqE",
   authDomain: "digitalartgallery-a1c18.firebaseapp.com",
@@ -16,13 +16,12 @@ const firebaseConfig = {
   measurementId: "G-L5LPN106GN",
 };
 
-// Initialize Firebase app, Firestore, and Storage
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Directory containing your images
-const imagesDirectory = path.join(__dirname, '../public/images');
+// Base directory containing all image subdirectories
+const baseDirectory = path.join(__dirname, '../public/images');
 
 // Artist and year constants
 const artist = 'Aetheric Canvas';
@@ -61,18 +60,37 @@ const generateArtworkMetadata = (filename) => {
   return { title, description, tags, style };
 };
 
+// Recursive function to find all image files in nested directories
+const getAllFiles = (dirPath, arrayOfFiles) => {
+  const files = fs.readdirSync(dirPath);
+
+  arrayOfFiles = arrayOfFiles || [];
+
+  files.forEach((file) => {
+    const filePath = path.join(dirPath, file);
+
+    if (fs.statSync(filePath).isDirectory()) {
+      arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(filePath);
+    }
+  });
+
+  return arrayOfFiles;
+};
+
 // Upload function
 const uploadArtworks = async () => {
   try {
     const artworksCollectionRef = collection(db, 'artworks');
-    const files = fs.readdirSync(imagesDirectory);
+    const files = getAllFiles(baseDirectory);
 
-    for (const file of files) {
-      const filePath = path.join(imagesDirectory, file);
-      const { title, description, tags, style } = generateArtworkMetadata(file);
+    for (const filePath of files) {
+      const fileName = path.basename(filePath);
+      const { title, description, tags, style } = generateArtworkMetadata(fileName);
 
       // Upload image to Firebase Storage
-      const imageRef = ref(storage, `gallery-artworks/${file}`);
+      const imageRef = ref(storage, `gallery-artworks/${fileName}`);
       const fileData = fs.readFileSync(filePath);
       await uploadBytes(imageRef, fileData);
 
