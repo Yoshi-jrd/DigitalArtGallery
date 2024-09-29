@@ -44,14 +44,14 @@ Set up Firebase to provide robust backend services, including real-time database
 
 
 6. **Update Frontend Integration**:
-   - Modify the app to fetch and display data dynamically from Firestore.
+   ~~- Modify the app to fetch and display data dynamically from Firestore.~~
    - Utilize real-time capabilities for features such as live updates, comments, or auctions.
    - We are here now, guide me through the next steps: 
    - Step 6: Update Your App Code
-             - Fetch Data from Firestore: Update your components to fetch data from Firestore instead of static files, using the db export from firebaseConfig.js.
-             - Implement Authentication: Use Firebase Authentication methods in your app to allow users to sign up, log in, and manage their accounts.
+             ~~- Fetch Data from Firestore: Update your components to fetch data from Firestore instead of static files, using the db export from firebaseConfig.js.~~
+             ~~- Implement Authentication: Use Firebase Authentication methods in your app to allow users to sign up, log in, and manage their accounts.~~
              - Use Firebase Storage: Modify your upload functionality to save images to Firebase Storage and fetch them as needed.
-             - Use Your Sign-Up Component:
+             ~~- Use Your Sign-Up Component:~~
 
 In your app, navigate to where your Auth.js component is rendered.
 Enter an email and password, then click Sign Up to create a new account.

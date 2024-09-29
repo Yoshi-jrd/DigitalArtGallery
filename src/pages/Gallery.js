@@ -1,5 +1,7 @@
 // src/pages/Gallery.js
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebaseConfig';  // Make sure this points to the correct config
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import Masonry from 'react-masonry-css';
@@ -12,18 +14,25 @@ const GalleryPage = () => {
   const [filterVisible, setFilterVisible] = useState(false);
   const [filter, setFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [images, setImages] = useState([]); // State for storing images fetched from Firestore
   const filterButtonRef = useRef(null);
 
-  const images = [
-      { src: '/images/featureCarousel/AWorthyGaze.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/publicGallery/irridescentRiver.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/featureCarousel/AWarriorsTouch.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/featureCarousel/CosmicVogue.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/featureCarousel/Shimmer.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/hero/ArtheroImage1.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      { src: '/images/publicGallery/theMilkeyWay.jpg', title: 'A Worthy Gaze', category: 'Portraits' },
-      // Other images omitted for brevity
-  ];
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'artworks'));
+        const fetchedImages = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setImages(fetchedImages); // Store fetched images in state
+      } catch (error) {
+        console.error('Error fetching artworks: ', error);
+      }
+    };
+
+    fetchImages(); // Call the fetch function on component mount
+  }, []);
 
   const openLightbox = (index) => {
     setCurrentImage(index);
@@ -40,17 +49,6 @@ const GalleryPage = () => {
     const matchesSearch = image.title.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        closeLightbox();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, closeLightbox]);
 
   return (
     <div className="gallery-page" role="main" aria-label="Art Gallery">
@@ -116,7 +114,7 @@ const GalleryPage = () => {
       >
         {filteredImages.map((image, index) => (
           <div
-            key={index}
+            key={image.id}
             className="gallery-item"
             onClick={() => openLightbox(index)}
             tabIndex="0"
@@ -125,7 +123,7 @@ const GalleryPage = () => {
             onKeyDown={(e) => e.key === 'Enter' && openLightbox(index)}
           >
             <img
-              src={image.src}
+              src={image.imageUrl} // Fetch image URL from Firestore
               alt={image.title || `Artwork ${index + 1}`}
               loading="lazy"
             />
@@ -138,7 +136,7 @@ const GalleryPage = () => {
         <Lightbox
           open={isOpen}
           close={closeLightbox}
-          slides={images}
+          slides={images.map(image => ({ src: image.imageUrl }))}
           index={currentImage}
           on={{
             close: closeLightbox,

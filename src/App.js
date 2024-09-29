@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; // Import Firebase authentication monitoring
@@ -10,10 +9,10 @@ import ScrollToTop from './components/Utils/scrollToTop';
 import HomePage from './pages/Home';
 import GalleryPage from './pages/Gallery';
 import Contact from './pages/Contact';
-import About from './pages/About';
+import Upload from './pages/Upload';
 import Donate from './pages/Donate';
-import Auth from './components/Utils/Auth'; // Corrected path for Auth component
-import ImageUpload from './components/Utils/ImageUpload'; // Corrected path for ImageUpload component
+import Auth from './components/Utils/Auth';
+import ImageUpload from './components/Utils/ImageUpload';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,18 +29,28 @@ function App() {
     return () => unsubscribe(); // Clean up on component unmount
   }, []);
 
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <GalleryProvider>
       <Router>
         <ScrollToTop /> {/* Ensures scroll-to-top on route change */}
-        <Navigation />
+        <Navigation isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/gallery" element={isAuthenticated ? <GalleryPage /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/upload" element={isAuthenticated ? <ImageUpload /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/login" element={<Auth setIsAuthenticated={setIsAuthenticated} />} />
         </Routes>
       </Router>
     </GalleryProvider>
