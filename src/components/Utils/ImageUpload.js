@@ -1,6 +1,6 @@
 // src/components/ImageUpload.js
 import { useState } from 'react';
-import { storage } from '../firebaseConfig';  // Ensure correct path to your Firebase config
+import { storage } from '../../firebaseConfig';  // Ensure correct path to your Firebase config
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const ImageUpload = () => {

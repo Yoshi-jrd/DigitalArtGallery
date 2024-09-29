@@ -12,8 +12,8 @@ import GalleryPage from './pages/Gallery';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Donate from './pages/Donate';
-import Auth from './components/Auth'; // Import Auth component
-import ImageUpload from './components/ImageUpload'; // Import ImageUpload component
+import Auth from './components/Utils/Auth'; // Corrected path for Auth component
+import ImageUpload from './components/Utils/ImageUpload'; // Corrected path for ImageUpload component
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

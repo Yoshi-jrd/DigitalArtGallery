@@ -1,6 +1,6 @@
 // src/components/Auth.js
 import { useState } from 'react';
-import { auth } from '../firebaseConfig'; // Import Firebase auth instance
+import { auth } from '../../firebaseConfig'; // Import Firebase auth instance
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const Auth = ({ setIsAuthenticated }) => {
