@@ -53,59 +53,6 @@ Set up Firebase to provide robust backend services, including real-time database
              - Use Firebase Storage: Modify your upload functionality to save images to Firebase Storage and fetch them as needed.
              ~~- Use Your Sign-Up Component:~~
 
-In your app, navigate to where your Auth.js component is rendered.
-Enter an email and password, then click Sign Up to create a new account.
-Example:
-
-Email: testuser@example.com
-Password: password123
-Verify the New User:
-
-Go to the Firebase Console.
-Navigate to Authentication > Users.
-You should see the newly created user listed in Firebase’s Authentication section.
-Step 2: Sign In as an Authenticated User
-Once you have created the account, you can now use the sign-in functionality to authenticate and access your app.
-
-Log Out of Any Current Sessions:
-If you're currently signed in with another user or session, use the Sign Out button in your Auth.js component to log out.
-Sign In with the New Account:
-Using your Auth.js component, enter the email and password you used to create the new account.
-Click Sign In to authenticate as that user.
-Step 3: Verify Firestore and Firebase Storage Access
-Now that you are signed in as an authenticated user, test if you can access Firestore data and Firebase Storage.
-
-Testing Firestore Access:
-Read Artworks:
-
-Go to your Gallery.js component that fetches artworks from Firestore.
-Ensure the artworks are properly loaded and displayed.
-Create, Update, Delete (CRUD):
-
-Go to Firebase Console > Firestore Database and try creating or modifying documents directly or through your admin tools (if available).
-Verify that the app reflects these changes (new artworks appearing, updates to artwork details, deletions).
-Testing Firebase Storage:
-Upload an Image:
-Use your ImageUpload.js component.
-Select and upload an image.
-Check the Firebase Console > Storage to see if the image is uploaded correctly.
-Verify Image Access:
-Once uploaded, verify that the URL is generated and displayed in your app.
-Check the generated URL for the uploaded image in Firebase Storage.
-Step 4: Test Security Rules
-After updating the security rules to restrict access based on authentication, you should confirm that the app behaves as expected.
-
-Test Access for Unauthenticated Users:
-
-Sign out of your authenticated session using the Sign Out button in your app.
-Try accessing the Gallery.js or ImageUpload.js components.
-Ensure that access to Firestore and Firebase Storage is denied for unauthenticated users (if your security rules are configured correctly).
-Test Access for Authenticated Users:
-
-Sign in again and confirm that you can access Firestore data and upload images as expected.
-Step 5: Testing Firestore CRUD Operations
-Verify the following:
-
 Create:
 
 Add a new artwork document (through Firebase Console or via an admin interface).

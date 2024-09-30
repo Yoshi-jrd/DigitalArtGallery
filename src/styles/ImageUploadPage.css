@@ -1,14 +1,15 @@
-/* Adjust the form's vertical centering by considering the sticky navbar height */
+/* Background container for the upload page */
 .upload-page {
+    background-color: rgba(0, 0, 0, 0.95); /* Opaque black form background */
     position: relative;
-    min-height: calc(100vh - 80px); /* Subtract the height of the navbar (adjust as needed) */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 
-/* Background blur and dark overlay */
+/* Pseudo-element for background */
 .upload-page::after {
     content: '';
     position: absolute;
@@ -16,34 +17,36 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent dark overlay */
-    z-index: 0;
-    filter: blur(40px); /* Apply strong blur */
-    opacity: 0.95; /* Darken the background */
-    transition: filter 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+    background-image: var(--bg-image); /* Dynamically set via JS */
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px); /* Apply strong blur */
+    opacity: 0.5; /* Darken the background */
+    z-index: 0; /* Ensure it stays behind the form */
 }
 
 /* Form container to stay above the blurred background */
-.upload-form-container {
+.upload-form-wrapper {
     position: relative;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 80px); /* Adjust height based on navbar */
+}
+
+.upload-form-container {
     background-color: rgba(0, 0, 0, 0.85); /* Opaque black form background */
-    margin: auto; /* Center horizontally */
+    margin: 100px auto;
     padding: 30px;
     border-radius: 10px;
-    max-width: 600px; /* Set maximum width for larger screens */
-    width: 100%; /* Full width for smaller screens */
+    max-width: 600px;
+    width: 100%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
     color: #fff;
     opacity: 1 !important;
     visibility: visible !important;
-    margin-top: auto; /* Push form downwards if needed */
-    margin-bottom: auto; /* Push form upwards if needed */
-}
-
-/* Ensure no extra margin at the top of the form on larger screens */
-.upload-form-container {
-    margin-top: 20px; /* Reduce any excess margin */
 }
 
 .upload-form-container h2 {
@@ -54,12 +57,12 @@
     color: #f0f0f0;
 }
 
-/* Input and form styles */
 .upload-form-container form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+
 
 .upload-form-container label {
     font-size: 1.1rem;

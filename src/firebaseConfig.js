@@ -1,9 +1,8 @@
-// firebaseConfig.js
 import { initializeApp } from 'firebase/app';
-//import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
+import { getAnalytics } from 'firebase/analytics'; // If needed for analytics
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,12 +12,15 @@ const firebaseConfig = {
   storageBucket: "digitalartgallery-a1c18.appspot.com",
   messagingSenderId: "437521707307",
   appId: "1:437521707307:web:571c39aa032f7cd8b7556e",
-  measurementId: "G-L5LPN106GN" // if Google Analytics is enabled (Y)
+  measurementId: "G-L5LPN106GN"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
+
+// eslint-disable-next-line no-unused-vars
+const analytics = getAnalytics(app); // For future use
+
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);

@@ -1,7 +1,7 @@
 // src/pages/Gallery.js
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebaseConfig';  // Make sure this points to the correct config
+import { db } from '../firebaseConfig.js';  // Make sure this points to the correct config
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import Masonry from 'react-masonry-css';

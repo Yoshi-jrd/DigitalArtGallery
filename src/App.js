@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; // Import Firebase authentication monitoring
-import { auth } from './firebaseConfig'; // Firebase config with auth and db
+import { auth } from './firebaseConfig.js'; // Firebase config with auth and db
 
-import { GalleryProvider } from './context/GalleryContext';
-import Navigation from './components/Layout/Navigation';
-import ScrollToTop from './components/Utils/scrollToTop';
-import HomePage from './pages/Home';
-import GalleryPage from './pages/Gallery';
-import Contact from './pages/Contact';
-import ImageUploadPage from './pages/ImageUpload';
-import Donate from './pages/Donate';
-import Auth from './components/Utils/Auth';
+import { GalleryProvider } from './context/GalleryContext.js';
+import Navigation from './components/Layout/Navigation.js';
+import ScrollToTop from './components/Utils/scrollToTop.js';
+import HomePage from './pages/Home.js';
+import GalleryPage from './pages/Gallery.js';
+import Contact from './pages/Contact.js';
+import ImageUploadPage from './pages/ImageUpload.js';
+import Donate from './pages/Donate.js';
+import Auth from './components/Utils/Auth.js';
 
 // Memoized Router to prevent unnecessary re-renders
 const MemoizedRouter = React.memo(({ isAuthenticated, handleLogout, setIsAuthenticated }) => (

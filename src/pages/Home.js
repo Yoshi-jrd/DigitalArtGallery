@@ -1,7 +1,7 @@
 // Home.js
 import React, { useEffect, useRef } from 'react';
-import ImageCarousel from '../components/Carousel/ImageCarousel';
-import GalleryCarousel from '../components/Carousel/GalleryCarousel';
+import ImageCarousel from '../components/Carousel/ImageCarousel.js';
+import GalleryCarousel from '../components/Carousel/GalleryCarousel.js';
 
 function HomePage() {
   const instagramRef = useRef(null);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { storage, db } from '../firebaseConfig';
+import { storage, db } from '../firebaseConfig.js';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, getDocs, addDoc, Timestamp } from 'firebase/firestore';
 import '../styles/ImageUploadPage.css'; // Import the CSS file
@@ -37,17 +37,6 @@ const ImageUploadPage = () => {
       isMounted = false; // Prevent updating state if component unmounts
     };
   }, []);
-
-  // Define the backgroundStyle with a fallback if no image is fetched
-  const backgroundStyle = backgroundImage
-    ? {
-      backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/digitalartgallery-a1c18.appspot.com/o/gallery-artworks%2FArtHeroImage1.jpg?alt=media&token=b62100c1-3e5e-4c05-9819-d9d91cad0d03')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }
-    : {
-        backgroundColor: '#111', // Fallback solid color if the image isn't fetched
-      };
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -99,63 +88,65 @@ const ImageUploadPage = () => {
   };
 
   return (
-    <div className="upload-page" style={backgroundStyle}>
-      <div className="upload-form-container">
-        <h2>Upload New Artwork</h2>
-        <form onSubmit={handleUpload}>
-          <div className="form-group">
-            <label>Title:</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Artist:</label>
-            <input
-              type="text"
-              value={artist}
-              onChange={(e) => setArtist(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Style:</label>
-            <input
-              type="text"
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Description:</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Tags (comma-separated):</label>
-            <input
-              type="text"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Upload Image:</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} required />
-          </div>
-          {uploadProgress > 0 && (
-            <div className="progress-container">
-              <progress value={uploadProgress} max="100"></progress>
-              <span>{uploadProgress}%</span>
+    <div className="upload-page" style={{ '--bg-image': `url(${backgroundImage})` }}>
+      <div className="upload-form-wrapper">
+        <div className="upload-form-container">
+          <h2>Upload New Artwork</h2>
+          <form onSubmit={handleUpload}>
+            <div className="form-group">
+              <label>Title:</label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
             </div>
-          )}
-          <button type="submit">Upload Artwork</button>
-        </form>
+            <div className="form-group">
+              <label>Artist:</label>
+              <input
+                type="text"
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Style:</label>
+              <input
+                type="text"
+                value={style}
+                onChange={(e) => setStyle(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Description:</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Tags (comma-separated):</label>
+              <input
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Upload Image:</label>
+              <input type="file" accept="image/*" onChange={handleImageChange} required />
+            </div>
+            {uploadProgress > 0 && (
+              <div className="progress-container">
+                <progress value={uploadProgress} max="100"></progress>
+                <span>{uploadProgress}%</span>
+              </div>
+            )}
+            <button type="submit">Upload Artwork</button>
+          </form>
+        </div>
       </div>
     </div>
   );
