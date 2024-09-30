@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; // Import Firebase authentication monitoring
 import { auth } from './firebaseConfig'; // Firebase config with auth and db
 
@@ -12,21 +12,53 @@ import Contact from './pages/Contact';
 import ImageUploadPage from './pages/ImageUpload';
 import Donate from './pages/Donate';
 import Auth from './components/Utils/Auth';
-//import ImageUpload from './components/Utils/ImageUpload';
+
+// Memoized Router to prevent unnecessary re-renders
+const MemoizedRouter = React.memo(({ isAuthenticated, handleLogout, setIsAuthenticated }) => (
+  <Router>
+    <ScrollToTop />
+    <Navigation isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route
+        path="/gallery"
+        element={isAuthenticated ? <GalleryPage /> : <Navigate to="/login" />}
+      />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/donate" element={<Donate />} />
+      <Route
+        path="/upload"
+        element={isAuthenticated ? <ImageUploadPage /> : <Navigate to="/login" />}
+      />
+      <Route path="/login" element={<Auth setIsAuthenticated={setIsAuthenticated} />} />
+    </Routes>
+  </Router>
+));
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Monitor authentication state and update accordingly
   useEffect(() => {
+    let debounceTimer;
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true); // User is signed in
-      } else {
-        setIsAuthenticated(false); // User is signed out
-      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if (user) {
+          console.log('User is authenticated');
+          setIsAuthenticated(true); // User is signed in
+        } else {
+          console.log('User is NOT authenticated');
+          setIsAuthenticated(false); // User is signed out
+        }
+      }, 300); // Debounce auth state updates to prevent multiple state changes
     });
-    return () => unsubscribe(); // Clean up on component unmount
+
+    return () => {
+      clearTimeout(debounceTimer);
+      unsubscribe(); // Clean up on component unmount
+    };
   }, []);
 
   // Logout function
@@ -41,18 +73,11 @@ function App() {
 
   return (
     <GalleryProvider>
-      <Router>
-        <ScrollToTop /> {/* Ensures scroll-to-top on route change */}
-        <Navigation isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/gallery" element={isAuthenticated ? <GalleryPage /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/upload" element={isAuthenticated ? <ImageUploadPage /> : <Auth setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/login" element={<Auth setIsAuthenticated={setIsAuthenticated} />} />
-        </Routes>
-      </Router>
+      <MemoizedRouter
+        isAuthenticated={isAuthenticated}
+        handleLogout={handleLogout}
+        setIsAuthenticated={setIsAuthenticated}
+      />
     </GalleryProvider>
   );
 }

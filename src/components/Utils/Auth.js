@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { auth } from '../../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -73,4 +74,4 @@ const Auth = ({ setIsAuthenticated }) => {
   );
 };
 
-export default Auth;
+export default React.memo(Auth);

@@ -15,21 +15,39 @@ const ImageUploadPage = () => {
   const [backgroundImage, setBackgroundImage] = useState(''); // State for background image
   
   useEffect(() => {
-    // Fetch random image from Firestore to set as background
+    let isMounted = true;
+
     const fetchRandomBackground = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'artworks'));
         const artworks = querySnapshot.docs.map((doc) => doc.data());
-        if (artworks.length > 0) {
+        if (isMounted && artworks.length > 0) {
           const randomImage = artworks[Math.floor(Math.random() * artworks.length)];
+          console.log("Random Image URL:", randomImage.imageUrl); // Log for debugging
           setBackgroundImage(randomImage.imageUrl);
         }
       } catch (error) {
         console.error("Error fetching background image: ", error);
       }
     };
+
     fetchRandomBackground();
+
+    return () => {
+      isMounted = false; // Prevent updating state if component unmounts
+    };
   }, []);
+
+  // Define the backgroundStyle with a fallback if no image is fetched
+  const backgroundStyle = backgroundImage
+    ? {
+      backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/digitalartgallery-a1c18.appspot.com/o/gallery-artworks%2FArtHeroImage1.jpg?alt=media&token=b62100c1-3e5e-4c05-9819-d9d91cad0d03')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {
+        backgroundColor: '#111', // Fallback solid color if the image isn't fetched
+      };
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -78,15 +96,6 @@ const ImageUploadPage = () => {
     } catch (e) {
       console.error('Error adding document: ', e);
     }
-  };
-
-  // Inline styles for background
-  const backgroundStyle = {
-    backgroundImage: `url(${backgroundImage})`,
-    filter: 'blur(40px)', // Adjust as needed
-    opacity: '0.15', // Darken background
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   };
 
   return (
@@ -152,4 +161,4 @@ const ImageUploadPage = () => {
   );
 };
 
-export default ImageUploadPage;
+export default React.memo(ImageUploadPage);
