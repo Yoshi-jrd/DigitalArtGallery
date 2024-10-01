@@ -2,19 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin'); // Use Firebase Admin SDK
 const { exiftool } = require('exiftool-vendored');
-const { auth } = require('../src/firebaseConfigCommonJS')
-
-// Path to your Firebase service account key (adjust the path as needed)
-const serviceAccount = require('../serviceAccountKey.json');
-
-// Initialize the Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: 'digitalartgallery-a1c18.appspot.com', // Your Firebase storage bucket
-});
-
-const db = admin.firestore();
-const storage = admin.storage().bucket();
+const { db, auth, storage } = require('../src/firebaseConfigCommonJS');
 
 // Directory containing your images to be uploaded
 const imagesDirectory = path.join(__dirname, '../public/images/uploadCorral');
@@ -52,7 +40,7 @@ const uploadImageToFirebase = async (filePath, fileName) => {
     console.log(`Uploaded ${sanitizedFileName} to Firebase Storage`);
 
     // Get the download URL of the uploaded image
-    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/your-project-id.appspot.com/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
+    const downloadURL = `https://firebasestorage.googleapis.com/v0/b/digitalartgallery-a1c18.appspot.com/o/${encodeURIComponent(fileUploadPath)}?alt=media`;
     console.log(`Download URL: ${downloadURL}`);
 
     return downloadURL;
@@ -63,49 +51,47 @@ const uploadImageToFirebase = async (filePath, fileName) => {
 };
 
 // Function to upload image metadata (including EXIF) to Firestore
-const uploadMetadataToFirestore = async (sanitizedFileName, downloadURL, fileMetadata, exifMetadata) => {
-    try {
-      const user = auth.currentUser; // Get the currently authenticated user
-      if (!user) {
-        throw new Error('User not authenticated');
-      }
-  
-      // Helper function to serialize ExifDateTime or similar objects into a string
-      const serializeExifDateTime = (dateTime) => {
-        return dateTime ? dateTime.toString() : null;
-      };
-  
-      // Serialize EXIF metadata to ensure no custom objects are sent to Firestore
-      const serializedExifMetadata = {
-        ...exifMetadata,
-        FileModifyDate: serializeExifDateTime(exifMetadata.FileModifyDate),
-        FileAccessDate: serializeExifDateTime(exifMetadata.FileAccessDate),
-        FileCreateDate: serializeExifDateTime(exifMetadata.FileCreateDate),
-      };
-  
-      // Define the metadata to be stored in Firestore
-      const metadata = {
-        fileName: sanitizedFileName, // Use the sanitized file name
-        downloadURL: downloadURL,
-        userId: user.uid, // Associate the uploaded image with the user's ID
-        uploadedAt: serverTimestamp(),
-        contentType: fileMetadata.contentType, // MIME type
-        size: fileMetadata.size, // File size in bytes
-        fullPath: fileMetadata.fullPath, // Full path in Firebase Storage
-        timeCreated: fileMetadata.timeCreated, // Creation time
-        updated: fileMetadata.updated, // Last updated time
-        exifData: serializedExifMetadata, // Include the serialized EXIF data
-      };
-  
-      // Save the metadata to Firestore under a 'gallery-artworks' collection
-      await addDoc(collection(db, 'gallery-artworks'), metadata);
-      console.log(`Metadata for ${sanitizedFileName} uploaded to Firestore`);
-    } catch (error) {
-      console.error('Failed to upload metadata:', error);
-      throw error;
-    }
-  };
-  
+const { serverTimestamp, collection, addDoc } = require('firebase-admin/firestore'); // Ensure this is imported from Firebase Admin
+
+const { FieldValue } = require('firebase-admin').firestore;
+
+const uploadMetadataToFirestore = async (sanitizedFileName, downloadURL, fileMetadata = {}, exifMetadata = {}) => {
+  try {
+    // Helper function to serialize ExifDateTime or similar objects into a string
+    const serializeExifDateTime = (dateTime) => {
+      return dateTime ? dateTime.toString() : null;
+    };
+
+    // Safely check and serialize EXIF metadata
+    const serializedExifMetadata = {
+      ...exifMetadata,
+      FileModifyDate: serializeExifDateTime(exifMetadata?.FileModifyDate),
+      FileAccessDate: serializeExifDateTime(exifMetadata?.FileAccessDate),
+      FileCreateDate: serializeExifDateTime(exifMetadata?.FileCreateDate),
+    };
+
+    // Build metadata object with fallback for undefined properties
+    const metadata = {
+      fileName: sanitizedFileName, // Use the sanitized file name
+      downloadURL: downloadURL,
+      uploadedAt: FieldValue.serverTimestamp(), // Firebase Admin SDK server timestamp
+      contentType: fileMetadata.contentType || 'unknown', // Provide a fallback for undefined contentType
+      size: fileMetadata.size || 0, // Default size to 0 if not available
+      fullPath: fileMetadata.fullPath || 'unknown', // Provide fallback for fullPath
+      timeCreated: fileMetadata.timeCreated || FieldValue.serverTimestamp(), // Default to current timestamp
+      updated: fileMetadata.updated || FieldValue.serverTimestamp(), // Default to current timestamp
+      exifData: serializedExifMetadata, // Include the serialized EXIF data
+    };
+
+    // Save the metadata to Firestore under a 'gallery-artworks' collection
+    await db.collection('gallery-artworks').add(metadata);
+    console.log(`Metadata for ${sanitizedFileName} uploaded to Firestore`);
+  } catch (error) {
+    console.error('Failed to upload metadata:', error);
+    throw error;
+  }
+};
+ 
 
 // Function to bulk upload images from a directory and save metadata to Firestore
 const bulkUploadImages = async () => {
