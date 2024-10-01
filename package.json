@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "exiftool-vendored": "^28.3.0",
     "firebase": "^10.13.2",
+    "firebase-admin": "^12.6.0",
     "fs": "^0.0.1-security",
     "inquirer": "^11.1.0",
     "path": "^0.12.7",
